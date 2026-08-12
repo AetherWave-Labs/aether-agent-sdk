@@ -1,2 +1,1 @@
-# aether-agent-sdk
-Modular SDK enabling autonomous AI agents to execute x402 header payments, query decentralized RPCs, and interact with smart contract tooling.
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)

@@ -258,10 +258,10 @@ Example:
 
 ```typescript
 const payment = await agent.pay({
-  network: "stellar-testnet",
-  asset: "USDC",
-  recipient: "RECIPIENT_ADDRESS",
-  amount: "10.50",
+  network: 'stellar-testnet',
+  asset: 'USDC',
+  recipient: 'RECIPIENT_ADDRESS',
+  amount: '10.50',
 });
 ```
 
@@ -463,9 +463,9 @@ Example conceptual interface:
 
 ```typescript
 const balance = await agent.query.balance({
-  network: "stellar-testnet",
-  asset: "USDC",
-  account: "ACCOUNT_ADDRESS",
+  network: 'stellar-testnet',
+  asset: 'USDC',
+  account: 'ACCOUNT_ADDRESS',
 });
 ```
 

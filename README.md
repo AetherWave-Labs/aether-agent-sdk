@@ -2,6 +2,10 @@
 
 **Modular SDK for autonomous on-chain payments, decentralized RPC queries, and smart-contract interactions across Stellar/Soroban and EVM-compatible networks.**
 
+[![Stellar](https://img.shields.io/badge/Stellar-Soroban-7D00FF?logo=stellar&logoColor=white)](https://stellar.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Node.js-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 `aether-agent-sdk` is a developer-focused SDK for building autonomous blockchain agents that can make programmable decisions, query decentralized infrastructure, prepare and execute token payments, and interact with smart contracts without tightly coupling application logic to a specific blockchain provider.
 
 The project is designed with **Stellar/Soroban as a primary ecosystem target**, with EVM-compatible networks supported through the same adapter-oriented architecture.

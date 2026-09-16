@@ -18,7 +18,7 @@ export function usdcToSmallestUnit(amount: string): bigint {
     throw new InvalidUsdcAmountError(`Invalid USDC amount: ${amount}`);
   }
 
-  const [wholePart, fractionPart = ""] = amount.split(".");
+  const [wholePart = '0', fractionPart = ''] = amount.split('.');
 
   if (fractionPart.length > USDC_DECIMALS) {
     throw new InvalidUsdcAmountError(

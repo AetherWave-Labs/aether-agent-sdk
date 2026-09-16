@@ -1,17 +1,4 @@
 {
-  "name": "aether-agent-sdk",
-  "version": "0.1.0",
-  "description": "Modular SDK for building autonomous agents that interact with blockchain infrastructure, execute on-chain token payments, query decentralized RPCs, and interact with smart contracts across Stellar Soroban and EVM-compatible networks.",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "test": "tsc && node --test dist/tests/unit/payments/amount.test.js"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "typescript": "^5.0.0"
   "name": "@aetherwave/aether-agent-sdk",
   "version": "0.1.0",
   "description": "Modular SDK for autonomous on-chain payments, decentralized RPC queries, and smart-contract interactions across Stellar/Soroban and EVM-compatible networks.",

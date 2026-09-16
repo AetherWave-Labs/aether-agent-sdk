@@ -852,18 +852,175 @@ Potential application areas include:
 - On-chain data and decision systems.
 - Autonomous service marketplaces.
 
+## Complete System Architecture
+
+The SDK is part of a complete autonomous blockchain execution workflow:
+
+```text
+                    ┌──────────────────┐
+                    │ Agent / User     │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │    Frontend      │
+                    │ Operations UI    │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │     Backend      │
+                    │ API + Services   │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │  Policy Engine   │
+                    └────────┬─────────┘
+                             │
+                     Policy Approved
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │ Transaction      │
+                    │ Execution        │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │ Stellar Adapter  │
+                    └────────┬─────────┘
+                             │
+                ┌────────────┴────────────┐
+                ▼                         ▼
+       ┌────────────────┐       ┌─────────────────┐
+       │ Stellar Network│       │ Soroban Contract│
+       └────────────────┘       └─────────────────┘
+```
+
+### End-to-End Flow
+
+```text
+Agent creates payment request
+↓
+Frontend submits request
+↓
+Backend receives request
+↓
+Authentication/authorization
+↓
+Policy engine evaluates request
+↓
+Invalid request → Reject
+↓
+Valid request
+↓
+Transaction preparation
+↓
+Simulation
+↓
+Signing
+↓
+Submission
+↓
+Stellar/Soroban execution
+↓
+Confirmation monitoring
+↓
+Transaction lifecycle update
+↓
+Audit event
+↓
+Backend returns status
+↓
+Frontend displays result
+```
+
+### Project Structure
+
+```text
+aether-agent-sdk/
+├── src/                    # Core SDK (TypeScript)
+│   ├── agents/             # Agent + policy enforcement
+│   ├── chains/             # Chain adapters (Stellar, EVM)
+│   ├── config/             # Network configurations
+│   ├── contracts/          # Smart contract interfaces
+│   ├── errors/             # Error hierarchy
+│   ├── payments/           # Payment validation & execution
+│   └── rpc/                # RPC client with retry/failover
+├── backend/                # Express API server
+│   └── src/
+│       ├── middleware/      # Auth, rate-limit, error handling
+│       ├── routes/         # API endpoints
+│       ├── services/       # Policy engine, transaction executor
+│       └── types/          # Shared types
+├── frontend/               # Next.js operations UI
+│   └── src/
+│       ├── app/            # Pages (dashboard, transactions, policies, audit)
+│       ├── components/     # UI components
+│       └── lib/            # API client
+├── contract/
+│   ├── soroban/            # Rust/Soroban policy contract
+│   └── evm/                # Solidity policy contract
+├── tests/                  # Test suite
+│   ├── e2e/                # End-to-end integration tests
+│   └── unit/               # Unit tests
+└── docs/                   # Documentation
+```
+
+### Running the System
+
+```bash
+# Install SDK dependencies
+npm install
+
+# Run SDK tests
+npm test
+
+# Build SDK
+npm run build
+
+# Start backend
+cd backend && npm install && npm run dev
+
+# Start frontend
+cd frontend && npm install && npm run dev
+```
+
+### E2E Test Coverage
+
+The test suite covers all required scenarios:
+
+1. Successful payment
+2. Policy rejection (amount exceeded)
+3. Invalid recipient
+4. Invalid amount
+5. Insufficient balance (daily limit)
+6. Simulation failure handling
+7. Signing phase
+8. Transaction failure handling
+9. Policy rejection (disallowed recipient)
+10. Confirmation tracking via audit trail
+11. Duplicate submission prevention
+12. Memo requirement enforcement
+13. Rate-limit rejection (audit logging)
+
 ## Project Status
 
-**Early development**
+**Integrated**
 
-`aether-agent-sdk` is currently being established as a modular SDK for autonomous blockchain agents.
+The SDK now includes a complete autonomous blockchain execution workflow with:
+
+- Core SDK with agent, payment, chain adapter, and RPC modules
+- Backend API with authentication, policy engine, and transaction execution
+- Frontend operations UI with dashboard, transaction explorer, and policy configuration
+- Soroban smart contract for on-chain policy enforcement
+- EVM smart contract for cross-chain policy enforcement
+- End-to-end test coverage for all 13 required scenarios
+- Complete documentation
 
 The architecture and public APIs may evolve during initial development. Contributors should therefore prefer small, isolated changes that follow the existing interfaces and project conventions.
 
-The long-term objective is to provide a reliable abstraction layer through which autonomous agents can safely query blockchain networks, execute token payments, and interact with smart contracts across Stellar/Soroban and EVM-compatible ecosystems.
-
-The project is intentionally being built incrementally: the foundational interfaces, adapters, safety controls, and test infrastructure should mature before the SDK is positioned as production-ready financial execution infrastructure.
-
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the Apache 2.0 License. See [LICENSE](LICENSE) for details.

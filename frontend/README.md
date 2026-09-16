@@ -1,20 +1,50 @@
-# Aether Agent Frontend & Management Dashboard
+# Aether Agent Frontend
 
-This directory contains the user interface, monitoring dashboard, and visual agent builder for managing autonomous agent operations across Stellar/Soroban and EVM networks.
+Next.js operations UI for managing autonomous blockchain agents.
 
-## Features
+## Pages
 
-- **Agent Dashboard**: Real-time monitoring of agent health, activity, and balance reserves.
-- **Transaction Explorer**: Inspect pending, confirmed, and failed agent-initiated transactions.
-- **Policy Configurator**: Visual policy editor for setting spending thresholds, allowlists, and execution boundaries.
-- **Simulation Sandbox**: Interactive testing interface for simulating agent decisions against Soroban and EVM contracts.
+- **Dashboard** (`/`) - Agent overview, statistics
+- **Transactions** (`/transactions`) - Transaction explorer with status tracking
+- **Policies** (`/policies`) - Agent policy configuration and creation
+- **Audit** (`/audit`) - Audit event log
 
-## Getting Started
-
-The frontend interacts with the backend services and uses `@aetherwave/aether-agent-sdk` for client-side state inspection.
+## Setup
 
 ```bash
-# Example setup when frontend app is initialized
 npm install
 npm run dev
 ```
+
+The frontend connects to the backend API at `http://localhost:3001` by default.
+
+## Configuration
+
+Create a `.env.local` file:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_API_KEY=dev-key-123
+```
+
+## Features
+
+- Real-time transaction status tracking
+- Policy configuration UI
+- Agent management
+- Audit log visualization
+- Responsive design with Tailwind CSS
+
+## Architecture
+
+```
+Frontend (Next.js)
+    ↓ API calls
+Backend (Express)
+    ↓ SDK calls
+Aether Agent SDK
+    ↓ Chain adapters
+Stellar / EVM Networks
+```
+
+The frontend never handles private keys. All signing and sensitive operations happen in the backend.

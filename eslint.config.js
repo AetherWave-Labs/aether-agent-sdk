@@ -15,6 +15,6 @@ export default [
     },
   },
   {
-    ignores: ['dist/', 'node_modules/', 'coverage/'],
+    ignores: ['dist/', 'node_modules/', 'coverage/', 'frontend/next.config.js', 'frontend/tailwind.config.js'],
   },
 ];

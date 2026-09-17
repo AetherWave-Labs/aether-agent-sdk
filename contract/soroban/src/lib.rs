@@ -43,9 +43,7 @@ impl PolicyGuard {
     }
 
     pub fn get_policy(env: Env, agent: Address) -> Option<Policy> {
-        env.storage()
-            .persistent()
-            .get(&(AGENT_POLICY, agent))
+        env.storage().persistent().get(&(AGENT_POLICY, agent))
     }
 
     pub fn check_transaction(

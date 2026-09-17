@@ -1,0 +1,17 @@
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Rust build output
+target/
+
+# Local deployment artifacts
+deployments/*.json
+deployments/*.txt
+
+# Editor/OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

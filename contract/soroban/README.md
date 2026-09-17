@@ -1,22 +1,26 @@
-# Soroban Smart Contracts
+# Soroban Contract Workspace
 
-This folder contains Stellar Soroban smart contracts written in Rust.
+This directory contains the Soroban smart-contract workspace for the
+AetherWave Agent SDK.
 
-## Prerequisites
+The workspace is responsible for contract development, local testing,
+WASM compilation, and environment-aware Stellar testnet deployment.
 
-- [Rust & Cargo](https://rustup.rs/) (edition 2021)
-- `wasm32-unknown-unknown` target: `rustup target add wasm32-unknown-unknown`
-- [Stellar CLI](https://developers.stellar.org/docs/tools/developer-tools/cli/stellar-cli): `cargo install --locked stellar-cli`
+## Workspace Structure
 
-## Typical Workflow
-
-```bash
-# Build contracts to WASM
-cargo build --target wasm32-unknown-unknown --release
-
-# Run Rust unit tests
-cargo test
-
-# Deploy to Stellar Testnet
-stellar contract deploy --wasm target/wasm32-unknown-unknown/release/<contract_name>.wasm --network testnet
-```
+```text
+soroban/
+├── src/
+│   └── lib.rs
+├── interfaces/
+├── types/
+├── test/
+├── scripts/
+│   ├── test.sh
+│   └── deploy-testnet.sh
+├── deployments/
+├── .env.example
+├── .gitignore
+├── Cargo.toml
+├── Cargo.lock
+└── README.md

@@ -65,6 +65,8 @@ Resilient JSON-RPC client with configurable retries, jitter, and fallback provid
 - `call<T>(method: string, params: unknown[]): Promise<T>`
 - `healthCheck(): Promise<boolean>`
 
+If every provider is marked unhealthy, `call()` rejects with `NetworkError` instead of cycling back to a known-failed endpoint. After independently checking a provider, `getPool().markSuccess(url)` makes it selectable again. Provider recovery is explicit; there is no automatic cooldown or background probe.
+
 ---
 
 ## Errors

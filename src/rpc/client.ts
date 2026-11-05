@@ -33,8 +33,17 @@ export class RPCClient {
       params,
     };
 
+    let lastProviderError: NetworkError | undefined;
     return withRetry(async () => {
-      const url = this.pool.getActiveProvider();
+      let url: string;
+      try {
+        url = this.pool.getActiveProvider();
+      } catch (error) {
+        // Preserve the actual endpoint failure when it exhausted this call's pool.
+        throw (
+          lastProviderError ?? new NetworkError('No healthy RPC providers available in pool', error)
+        );
+      }
       const start = Date.now();
 
       try {
@@ -74,16 +83,18 @@ export class RPCClient {
         return data.result as T;
       } catch (error) {
         if (error instanceof NetworkError) {
+          lastProviderError = error;
           throw error;
         }
         this.pool.markFailure(url);
-        throw new NetworkError(
+        lastProviderError = new NetworkError(
           `Failed to communicate with RPC endpoint ${url}: ${
             error instanceof Error ? error.message : String(error)
           }`,
           error,
           url
         );
+        throw lastProviderError;
       }
     }, this.retryConfig);
   }

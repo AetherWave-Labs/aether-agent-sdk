@@ -18,11 +18,15 @@ export class ProviderPool {
   }
 
   public getActiveProvider(): string {
-    const provider = this.providers[this.currentIndex];
-    if (!provider) {
-      throw new Error('No RPC providers available in pool');
+    for (let offset = 0; offset < this.providers.length; offset++) {
+      const index = (this.currentIndex + offset) % this.providers.length;
+      const provider = this.providers[index];
+      if (provider && this.healthMap.get(provider)?.isHealthy) {
+        this.currentIndex = index;
+        return provider;
+      }
     }
-    return provider;
+    throw new Error('No healthy RPC providers available in pool');
   }
 
   public getAllProviders(): string[] {
@@ -35,7 +39,6 @@ export class ProviderPool {
       status.isHealthy = false;
       status.lastChecked = Date.now();
     }
-    this.rotate();
   }
 
   public markSuccess(url: string, latencyMs: number = 0): void {
